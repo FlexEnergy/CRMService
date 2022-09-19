@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 using SmartSphere.Protos;
 using SmartSphere.CRM.Protos;
 
-namespace SmartSphere.CRM.Customers.Entities
+namespace SmartSphere.CRM.Database.Entities
 {
-    public class Customer
+    public class Organisation
     {
-        public string Code { get; set; }
         public string ContactID { get; set; }
-        public string BusinessID { get; set; }
         public string Description { get; set; }
-        public DateTimeOffset Created { get; set; }
-        public string OwnerID { get; set; }
+        public List<Business> Businesses { get; set; }
     }
 }

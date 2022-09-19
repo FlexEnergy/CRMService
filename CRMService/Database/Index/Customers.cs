@@ -16,7 +16,7 @@ using Raven.Client.Documents.Indexes;
 using Google.Protobuf.Collections;
 using SmartSphere.Database.Raven;
 using SmartSphere.Logs;
-using SmartSphere.CRM.Customers.Entities;
+using SmartSphere.CRM.Database.Entities;
 
 namespace SmartSphere.CRM.Database.Index
 {
@@ -29,9 +29,29 @@ namespace SmartSphere.CRM.Database.Index
                             {
                                 ContactID = dataset.ContactID,
                                 BusinessID = dataset.BusinessID,
-                                Code = dataset.Code
+                                CustomerCode = dataset.CustomerCode
                             };
         }
     }
-  
+
+    public class Customers_ContractAccounts : AbstractIndexCreationTask<Customer>
+    {
+        public Customers_ContractAccounts()
+        {
+            Map = values => from dataset in values
+                            from ca in dataset.ContractAccounts 
+                            from co in ca.Contracts
+                            select new
+                            {
+                                ContactID = dataset.ContactID,
+                                BusinessID = dataset.BusinessID,
+                                CustomerCode = dataset.CustomerCode,
+                                ContractAccountID = ca.ContractAccountID,
+                                ContractAccountCode = ca.ContractAccountCode,
+                                ContractID = co.ContractID,
+                                ContractCode = co.ContractCode
+                            };
+        }
+    }
+
 }

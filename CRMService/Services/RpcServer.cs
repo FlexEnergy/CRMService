@@ -33,9 +33,8 @@ namespace SmartSphere.CRM.Services
 
                 GrpcServer = new Server
                 {
-                    Services = { OrganisationService.BindService(new Organisations.ServerService()),
-                    BusinessService.BindService(new Business.ServerService()),
-                    CustomerService.BindService(new Customers.ServerService())},
+                    Services = { OrganisationService.BindService(new OrganisationServerService()),                     
+                        CustomerService.BindService(new CustomerServerService())},
                     Ports = { new ServerPort(Settings.RpcService.Host, Settings.RpcService.Port, ServerCredentials.Insecure) }
                 };
 
@@ -94,6 +93,7 @@ namespace SmartSphere.CRM.Services
                         if (!Settings.IndexApplied) //Applica indici database
                         {
                             Database.Index.Manager.Run();
+                            Controllers.ContractServiceController.Start();
                             Settings.IndexApplied = true;
                         }
 

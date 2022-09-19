@@ -15,7 +15,7 @@ using SmartSphere.Logs;
 using System.Reflection;
 using Google.Protobuf.WellKnownTypes;
 using Google.Protobuf.Collections;
-
+//using SmartSphere.CRM.Database.Entities;
 
 namespace SmartSphere.CRM.Organisations
 {
@@ -28,7 +28,7 @@ namespace SmartSphere.CRM.Organisations
                 using IDocumentSession _session = DocumentStoreHolder.Store.OpenSession();
                 _session.Advanced.WaitForIndexesAfterSaveChanges();
 
-                IRavenQueryable<Entities.Organisation> _query = _session.Query<Entities.Organisation>("Organisations/Index");
+                IRavenQueryable<CRM.Database.Entities.Organisation> _query = _session.Query<CRM.Database.Entities.Organisation>("Organisations/Index");
 
                 RepeatedField<Organisation> _reply = new();     
                 

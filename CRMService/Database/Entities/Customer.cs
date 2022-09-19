@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using SmartSphere.Protos;
 using SmartSphere.CRM.Protos;
 
-namespace SmartSphere.CRM.Organisations.Entities
+namespace SmartSphere.CRM.Database.Entities
 {
-    public class Organisation
+    public class Customer
     {
+        public string CustomerCode { get; set; }
         public string ContactID { get; set; }
-        public string Description { get; set; }
+        public string BusinessID { get; set; }
+        public List<ContractAccount> ContractAccounts { get; set; }
     }
 }

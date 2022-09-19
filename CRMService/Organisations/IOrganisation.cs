@@ -10,9 +10,9 @@ namespace SmartSphere.CRM.Organisations
 {
     internal interface IOrganisation
     {
-        internal CommonResponse Create(Organisation request);
-        internal CommonResponse Update(Organisation request);
-        internal CommonResponse Remove(Organisation request);
+        internal Response Create(Organisation request);
+        internal Response Update(Organisation request);
+        internal Response Remove(Organisation request);
         internal OrganisationList Search(OrganisationFilter request);
     }
 }

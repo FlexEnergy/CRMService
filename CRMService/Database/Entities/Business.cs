@@ -8,13 +8,13 @@ using SmartSphere.Protos;
 using SmartSphere.CRM.Protos;
 using SmartSphere.CRM.Database.Models;
 
-namespace SmartSphere.CRM.Business.Entities
+namespace SmartSphere.CRM.Database.Entities
 {
     public class Business
     {
         public string ContactID { get; set; }
-        public string OrganisationID { get; set; }
+        public string BusinessID { get; set; }
         public string Description { get; set; }
-        public Database.Models.Code CustomerCode { get; set; }
+        public Models.Code CustomerCode { get; set; }
     }
 }

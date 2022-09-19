@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using SmartSphere.Protos;
 using SmartSphere.CRM.Protos;
+using SmartSphere.CRM.Organisations;
 
-namespace SmartSphere.CRM.Organisations
+namespace SmartSphere.CRM.Services
 {
-    internal class ServerService : OrganisationService.OrganisationServiceBase
+    internal class OrganisationServerService : OrganisationService.OrganisationServiceBase
     {
         //public override async Task<CommonResponse> Create(Organisation request, ServerCallContext context)
         //{
@@ -30,7 +31,7 @@ namespace SmartSphere.CRM.Organisations
             }
             catch (Exception)
             {
-                return await Task.FromResult(new OrganisationList() );
+                return await Task.FromResult(new OrganisationList());
             }
         }
 

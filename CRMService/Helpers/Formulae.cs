@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SmartSphere.Protos;
+
 using SmartSphere.CRM.Protos;
 using SmartSphere.Database.Raven.Entities;
 using Raven.Client.Documents.Session;
@@ -12,35 +12,45 @@ using SmartSphere.Logs;
 using System.Reflection;
 using Google.Protobuf.WellKnownTypes;
 using Google.Protobuf.Collections;
+using Raven.Client.Documents.Linq;
+using SmartSphere.CRM.Database.Entities;
+using Azure.Core;
+
 
 namespace SmartSphere.CRM.Helpers
 {
     internal static class Formulae
     {
-        internal static string CustomerCode(IDocumentSession session, string businessID)
+        internal static string CustomerCode(IDocumentSession session, string organisationID, string businessID)
         {
             try
             {
-                Business.Entities.Business _business = session.Load<Business.Entities.Business>(businessID);
-                if (_business != null)
+                Database.Entities.Organisation _org = session.Load<Database.Entities.Organisation>(organisationID);
+
+                var _query = from s in _org.Businesses
+                             where s.BusinessID == businessID
+                             select s;
+
+                foreach (var item in _query)
                 {
-                    if (_business.CustomerCode.TypeOfCode == TypeOfCode.Counter)
+                    string _id = session.Advanced.GetDocumentId(item);
+
+                    if (item.CustomerCode.TypeOfCode == TypeOfCode.Counter)
                     {
-                        if (_business.CustomerCode.CounterName == "Self")
-                            return Counter_Self(session, _business);
+                        if (item.CustomerCode.CounterName == "Self")
+                            return Counter_Self(session, item);
                         else
-                            return Counter_Name(session, _business);
+                            return Counter_Name(session, item);
                     }
-                    else if (_business.CustomerCode.TypeOfCode == TypeOfCode.Custom)
+                    else if (item.CustomerCode.TypeOfCode == TypeOfCode.Custom)
                     {
 
                     }
-                    else if (_business.CustomerCode.TypeOfCode == TypeOfCode.Erp)
+                    else if (item.CustomerCode.TypeOfCode == TypeOfCode.Erp)
                     {
 
                     }
                 }
-
                 return string.Empty;
             }
             catch (Exception)
@@ -49,20 +59,17 @@ namespace SmartSphere.CRM.Helpers
             }
         }
 
-        private static string Counter_Self(IDocumentSession session, Business.Entities.Business business)
+        private static string Counter_Self(IDocumentSession session, Database.Entities.Business business)
         {
-            business.CustomerCode.Counter += 1;
-            session.SaveChanges();
-
-            return business.CustomerCode.ToString();
+            business.CustomerCode.Counter += 1;              
+            return business.CustomerCode.Counter.ToString();
         }
 
-        private static string Counter_Name(IDocumentSession session, Business.Entities.Business business)
+        private static string Counter_Name(IDocumentSession session, Database.Entities.Business business)
         {
-            Database.Entities.Counter _counter = session.Load<Database.Entities.Counter>(business.CustomerCode.CounterName);
+            Counter _counter = session.Load<Counter>(business.CustomerCode.CounterName);
             _counter.Code += 1;   
-            session.SaveChanges();
-
+    
             return _counter.Code.ToString();
         }
 

@@ -11,7 +11,8 @@ namespace SmartSphere.CRM.Database.Entities
 {
     public class Contract
     {
-        public string Code { get; set; }
+        public string ContractID { get; set; }
+        public string ContractCode { get; set; }
         public DateTimeOffset Date1 { get; set; }
         public DateTimeOffset Date2 { get; set; }
         public List<ContractService> ContractServices { get; set; }
@@ -19,8 +20,8 @@ namespace SmartSphere.CRM.Database.Entities
 
     public class ContractService
     {
-        public string Type { get; set; }
-        public string ID { get; set; }
+        public string ContractServiceID { get; set; }
+        public string ContractServiceType { get; set; }
     }
 
 }

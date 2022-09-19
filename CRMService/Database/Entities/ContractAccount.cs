@@ -11,9 +11,10 @@ namespace SmartSphere.CRM.Database.Entities
 {
     public class ContractAccount
     {
-        public string Code { get; set; }
+        public string ContractAccountID { get; set; }
+        public string ContractAccountCode { get; set; }
         public DateTimeOffset Date1 { get; set; }
         public DateTimeOffset Date2 { get; set; }
-        public List<string> Contracts { get; set; }
+        public List<Contract> Contracts { get; set; }
     }
 }

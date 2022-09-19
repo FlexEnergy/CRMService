@@ -28,6 +28,15 @@ namespace SmartSphere.CRM
                 //Database.Index.Test.RunDbTest();
                 //Database.Models.Manager.Run();
 
+                //Controllers.CustomerController.Create(new Protos.Customer()
+                //{
+                //    OrganisationID = "c3f6a102-5dfe-4d58-9151-dbb019e41cbc",
+                //    BusinessID = "7a47fbc4-fbf3-4dab-8903-a6dc8adfaecb",
+                //    ContactID = "0da89c2f-2a50-45e2-a027-c04aaa3e84ec"
+
+                //});
+
+
                 Settings.IndexApplied = false;
                 CreateHostBuilder(args).Build().Run();
             }

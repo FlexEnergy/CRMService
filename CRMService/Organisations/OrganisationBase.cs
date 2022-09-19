@@ -19,9 +19,9 @@ namespace SmartSphere.CRM.Organisations
 {
     internal class OrganisationBase : IOrganisation
     {
-        CommonResponse IOrganisation.Create(Organisation request)
+        Response IOrganisation.Create(Organisation request)
         {
-            CommonResponse _response = new() ;
+            Response _response = new() ;
             
             try
             {
@@ -66,7 +66,7 @@ namespace SmartSphere.CRM.Organisations
 
         private bool Exists(IDocumentSession session, string contactID)
         {
-            IRavenQueryable<Entities.Organisation> _query = session.Query<Entities.Organisation>("Organisations/Index")
+            IRavenQueryable<CRM.Database.Entities.Organisation> _query = session.Query<CRM.Database.Entities.Organisation>("Organisations/Index")
                 .Where(x => x.ContactID == contactID);
 
             foreach (var item in _query)
@@ -75,7 +75,7 @@ namespace SmartSphere.CRM.Organisations
             return false;
         }
 
-        CommonResponse IOrganisation.Remove(Organisation request)
+        Response IOrganisation.Remove(Organisation request)
         {
             throw new NotImplementedException();
         }
@@ -85,29 +85,29 @@ namespace SmartSphere.CRM.Organisations
             OrganisationList _response = new();
             try
             {
-                RepeatedField<Organisation> _orgs = Database.GetOrganisations();
+                //RepeatedField<Organisation> _orgs = Database.GetOrganisations();
 
-                if(_orgs != null)
-                {
-                    _response.Organisations.AddRange(_orgs);
-                    _response.ResponseState = ResponseState.Ok;
+                //if(_orgs != null)
+                //{
+                //    _response.Organisations.AddRange(_orgs);
+                //    _response.ResponseState = ResponseState.Ok;
 
-                    return _response;
-                }
+                //    return _response;
+                //}
 
-                _response.ResponseState = ResponseState.Failed;
+                //_response.ResponseState = ResponseState.Failed;
                 return _response;
             }
             catch (Exception ex)
             {
                 Log.Message(Severities.FATAL, "O000", "Fatal exception", GetType().Name, MethodBase.GetCurrentMethod().Name,text2:ex.Message);
-                _response.ResponseState = ResponseState.Failed;             
+                //_response.ResponseState = ResponseState.Failed;             
                 return _response;
             }
         }
-   
 
-        CommonResponse IOrganisation.Update(Organisation request)
+
+        Response IOrganisation.Update(Organisation request)
         {
             throw new NotImplementedException();
         }

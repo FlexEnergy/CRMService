@@ -16,7 +16,8 @@ using Raven.Client.Documents.Indexes;
 using Google.Protobuf.Collections;
 using SmartSphere.Database.Raven;
 using SmartSphere.Logs;
-using SmartSphere.CRM.Organisations.Entities;
+using SmartSphere.CRM.Database.Entities;
+using Microsoft.Extensions.Hosting;
 
 namespace SmartSphere.CRM.Database.Index
 {
@@ -25,9 +26,11 @@ namespace SmartSphere.CRM.Database.Index
         public Organisations_Index()
         {
             Map = values => from dataset in values
+                            from bu in dataset.Businesses
                             select new
                             {
-                                ContactID = dataset.ContactID                   
+                                ContactID = dataset.ContactID,
+                                BusinessID = Recurse(dataset, x => x.Businesses).Select(x => x.BusinessID)                  
                             };
         }
     }

@@ -31,7 +31,9 @@ namespace SmartSphere.CRM.Database.Index
 
                 new Customers_Index().Execute(DocumentStoreHolder.Store, DocumentStoreHolder.Store.Conventions);
                 new Organisations_Index().Execute(DocumentStoreHolder.Store, DocumentStoreHolder.Store.Conventions);
-                new Business_Index().Execute(DocumentStoreHolder.Store, DocumentStoreHolder.Store.Conventions);
+                new Business_Codes().Execute(DocumentStoreHolder.Store, DocumentStoreHolder.Store.Conventions);
+                new Customers_ContractAccounts().Execute(DocumentStoreHolder.Store, DocumentStoreHolder.Store.Conventions);
+                
             }
 
             catch (Exception ex)
