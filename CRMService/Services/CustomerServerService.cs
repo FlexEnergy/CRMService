@@ -53,7 +53,7 @@ namespace SmartSphere.CRM.Services
 
         public override async Task<Customer> GetCustomer(CustomerFilter request, ServerCallContext context)
         {
-            return await Task.FromResult(CustomerController.GetCustomer(request));
+            return await Task.FromResult(CustomerController.GetCustomerSearch(request));
         }
 
     }

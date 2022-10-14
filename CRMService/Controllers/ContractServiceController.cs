@@ -19,6 +19,8 @@ using SmartSphere.Directory.Protos;
 using FlexEnergy.Protos;
 using Grpc.Core;
 using Azure.Core;
+using SmartSphere.CRM.Database.Entities;
+
 
 namespace SmartSphere.CRM.Controllers
 {
@@ -88,6 +90,8 @@ namespace SmartSphere.CRM.Controllers
 
 
         }
+
+
 
     }
 }

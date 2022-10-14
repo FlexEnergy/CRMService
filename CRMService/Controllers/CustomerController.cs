@@ -120,6 +120,78 @@ namespace SmartSphere.CRM.Controllers
             }
         }
 
+
+        internal static Customer GetCustomerSearch(CustomerFilter request)
+        {
+            try
+            {
+                Customer _customer = new();
+
+                if (request.HasCustomerID)
+                    return GetCustomer(request);
+                else if (request.HasContractServiceID && request.HasContractServiceType)
+                    return GetCustomerByContractService(request);
+
+                return _customer;
+            }
+            catch (Exception ex)
+            {
+                Log.Message(Severities.FATAL, "0004", "Fatal exception", string.Empty, MethodBase.GetCurrentMethod().Name, ex.Message);
+                return new Customer() { Successful = false };
+            }
+        }
+
+        //internal static void TEST()
+        //{
+        //    using IDocumentSession _session = DocumentStoreHolder.Store.OpenSession();
+        //    _session.Advanced.WaitForIndexesAfterSaveChanges();
+
+
+        //    IList<Database.Entities.Customer> results = _session.Query<Database.Index.Customers_ContractAccounts.Result, Database.Index.Customers_ContractAccounts>()
+        //           .Where(x => x.ContractServiceID == "7fd10351-ddd0-476f-b789-e3c23ba4661c" && x.ContractServiceType == "Electrical")
+        //           .OfType<Database.Entities.Customer>()
+        //           .ToList();
+
+
+        //    foreach (var item in results)
+        //    {
+
+        //    }
+
+
+        //}
+
+        internal static Customer GetCustomerByContractService(CustomerFilter request)
+        {
+            try
+            {
+                Customer _customer = new();
+                using IDocumentSession _session = DocumentStoreHolder.Store.OpenSession();
+                _session.Advanced.WaitForIndexesAfterSaveChanges();
+
+                IList<Database.Entities.Customer> _results = _session.Query<Database.Index.Customers_ContractAccounts.Result, Database.Index.Customers_ContractAccounts>()       
+                    .Where(x => x.ContractServiceID == request.ContractServiceID && x.ContractServiceType == request.ContractServiceType)       
+                    .OfType<Database.Entities.Customer>()       
+                    .ToList();
+
+                if(_results.Count == 1)
+                {
+                    foreach (var item in _results)
+                    {
+                        _customer.CustomerID = _session.Advanced.GetDocumentId(item);
+                        CustomerDTO(item, _customer, request);
+                    }
+                }                   
+
+                return _customer;
+            }
+            catch (Exception ex)
+            {
+                Log.Message(Severities.FATAL, "0004", "Fatal exception", string.Empty, MethodBase.GetCurrentMethod().Name, ex.Message);
+                return new Customer() { Successful = false };
+            }
+        }
+
         internal static Customer GetCustomer(CustomerFilter request)
         {
             try

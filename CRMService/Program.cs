@@ -35,7 +35,7 @@ namespace SmartSphere.CRM
                 //    ContactID = "0da89c2f-2a50-45e2-a027-c04aaa3e84ec"
 
                 //});
-
+      
 
                 Settings.IndexApplied = false;
                 CreateHostBuilder(args).Build().Run();

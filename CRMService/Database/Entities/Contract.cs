@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SmartSphere.Protos;
 using SmartSphere.CRM.Protos;
+using SmartSphere.Financial;
 
 namespace SmartSphere.CRM.Database.Entities
 {
@@ -20,6 +21,9 @@ namespace SmartSphere.CRM.Database.Entities
 
     public class ContractService
     {
+        public DateTimeOffset Date1 { get; set; }
+        public DateTimeOffset Date2 { get; set; }
+        public AccountingInterval AccountingInterval { get; set; }
         public string ContractServiceID { get; set; }
         public string ContractServiceType { get; set; }
     }
