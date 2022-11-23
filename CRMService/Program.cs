@@ -20,8 +20,8 @@ namespace SmartSphere.CRM
             if (AppSettings())
             {
                 Log.Start(Settings.Log.Path, Settings.Log.FileName, Settings.Log.Level, Settings.Name, Settings.ID);
-                //Database.Index.Test.AddressType(); //DISABILITATO PER CONGUAGLI TEMPORANEI
-
+                //Database.Index.Test.AddressType(); 
+                //DISABILITATO PER CONGUAGLI TEMPORANEI
                 //Database.Index.Test.Directory_Person();
                 //Database.Index.Test.Directory_Corporate();
                 //Database.Index.Manager.Run();
@@ -33,9 +33,7 @@ namespace SmartSphere.CRM
                 //    OrganisationID = "c3f6a102-5dfe-4d58-9151-dbb019e41cbc",
                 //    BusinessID = "7a47fbc4-fbf3-4dab-8903-a6dc8adfaecb",
                 //    ContactID = "0da89c2f-2a50-45e2-a027-c04aaa3e84ec"
-
-                //});
-      
+                //});    
 
                 Settings.IndexApplied = false;
                 CreateHostBuilder(args).Build().Run();
